@@ -4,6 +4,8 @@ port: 4000
 host: 0.0.0.0
 safe: false
 
+gems:
+  - jekyll-redirect-from
 
 ### site serving configuration ###
 exclude: [CNAME, README.md, .gitignore]
@@ -21,7 +23,7 @@ description: "REMnux is a free toolkit for assisting malware analysts with rever
 source_link: "https://github.com/REMnux/REMnux.github.io"
 favicon:     "img/favicon.ico"
 touch_icon:  "img/touch-icon.bmp"
-google_analytics_key: ## put YOUR key here to enable tracking! (blank to disable)
+google_analytics_key: UA-23590087-4
 
 
 ### template colors, used site-wide via css ###
