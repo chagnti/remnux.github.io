@@ -1,6 +1,6 @@
 ---
 title: "Containers"
-bg: turquoise
+bg: gray
 color: black
 fa-icon: cube
 ---
