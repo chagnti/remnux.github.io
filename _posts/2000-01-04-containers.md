@@ -2,7 +2,7 @@
 title: "Containers"
 bg: gray
 color: black
-fa-icon: cube
+fa-icon: cubes
 ---
 
 
