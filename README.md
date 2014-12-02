@@ -1,1 +1,1 @@
-This repository contains the source code of the REMnux public website [REMnux.org](http://remnux.org/). These files are designed to be built using [Jekyll](http://jekyllrb.com/) and are automatically imported via [Github Pages](https://pages.github.com/) to generate the formatted site.
+This repository contains the source code of the REMnux public website [REMnux.org](http://remnux.org/). These source files are designed to be built using [Jekyll](http://jekyllrb.com/) and are automatically imported via [Github Pages](https://pages.github.com/) to generate the formatted site.
