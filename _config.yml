@@ -19,8 +19,7 @@ highlighter: pygments
 ### content configuration ###
 title:       "REMnux: A free Linux Toolkit for Reverse-Engineering and Analyzing Malware"
 keywords:    "REMnux, malware analysis, reverse-engineering, malicious software, tools, utilities"
-description: "REMnux is a free toolkit for assisting malware analysts with reverse-engineering malicious software."
-source_link: "https://github.com/REMnux/REMnux.github.io"
+description: "REMnux is a free Linux toolkit for assisting malware analysts with reverse-engineering malicious software."
 favicon:     "img/favicon.ico"
 touch_icon:  "img/touch-icon.bmp"
 google_analytics_key: UA-23590087-4
