@@ -611,10 +611,6 @@ install_firefox_extensions() {
 update_remnux_documentation() {
 
   echoinfo "Updating REMnux documentation"
-  
-  if [ -e /usr/share/remnux/remnux-tools-sheet.html -a ! -e $HOME/Desktop/REMnux\ Tools\ Sheet ]; then
-    ln -s /usr/share/remnux/remnux-tools-sheet.html $HOME/Desktop/REMnux\ Tools\ Sheet >> $LOGFILE 2>&1
-  fi
 
   TMP_DOCS_DIR="/tmp/remnux-docs.$$"
   rm -rf $TMP_DOCS_DIR >> $LOGFILE 2>&1
@@ -632,6 +628,10 @@ update_remnux_documentation() {
   # REMnux docs try to load scripts from Cloudlfare, which prevents the page from loading without
   # Internet connectivity. It's OK to remove all lines that reference cloudflare.com in .html files.
   find /usr/share/remnux/docs -iname '*.html' -execdir sed -ie '/cloudflare.com/ { N; d; }' {} \; >> $LOGFILE 2>&1
+  
+  if [ -e /usr/share/remnux/remnux-tools-sheet.html -a ! -e $HOME/Desktop/REMnux\ Tools\ Sheet ]; then
+    ln -s /usr/share/remnux/remnux-tools-sheet.html $HOME/Desktop/REMnux\ Tools\ Sheet >> $LOGFILE 2>&1
+  fi
   
   return 0
 }
