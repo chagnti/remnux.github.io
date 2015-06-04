@@ -625,10 +625,6 @@ update_remnux_documentation() {
     ln -s /usr/share/remnux/docs /var/www/remnux-docs >> $LOGFILE 2>&1
   fi
   
-  # REMnux docs try to load scripts from Cloudlfare, which prevents the page from loading without
-  # Internet connectivity. It's OK to remove all lines that reference cloudflare.com in .html files.
-  find /usr/share/remnux/docs -iname '*.html' -execdir sed -ie '/cloudflare.com/ { N; d; }' {} \; >> $LOGFILE 2>&1
-  
   if [ -e /usr/share/remnux/remnux-tools-sheet.html -a ! -e $HOME/Desktop/REMnux\ Tools\ Sheet ]; then
     ln -s /usr/share/remnux/remnux-tools-sheet.html $HOME/Desktop/REMnux\ Tools\ Sheet >> $LOGFILE 2>&1
   fi
