@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-112"
+__ScriptVersion="REMnux-v6-113"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -627,6 +627,10 @@ update_remnux_documentation() {
   
   if [ -e /usr/share/remnux/remnux-tools-sheet.html -a ! -e $HOME/Desktop/REMnux\ Tools\ Sheet ]; then
     ln -s /usr/share/remnux/remnux-tools-sheet.html $HOME/Desktop/REMnux\ Tools\ Sheet >> $LOGFILE 2>&1
+  fi
+  
+  if [ -e /usr/share/remnux/remnux-malware-analysis-tips.pdf -a ! -e $HOME/Desktop/REMnux\ Cheat\ Sheet ]; then
+    ln -s /usr/share/remnux/remnux-malware-analysis-tips.pdf $HOME/Desktop/REMnux\ Cheat\ Sheet >> $LOGFILE 2>&1
   fi
   
   return 0
