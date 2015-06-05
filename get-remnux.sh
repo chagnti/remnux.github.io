@@ -612,6 +612,7 @@ update_remnux_documentation() {
 
   echoinfo "Updating REMnux documentation"
 
+  sudo -u $SUDO_USER mkdir -p $HOME/Desktop >> $LOGFILE 2>&1
   TMP_DOCS_DIR="/tmp/remnux-docs.$$"
   rm -rf $TMP_DOCS_DIR >> $LOGFILE 2>&1
   git clone -q -b gh-pages https://github.com/REMnux/docs.git /tmp/remnux-docs.$$ >> $LOGFILE 2>&1
