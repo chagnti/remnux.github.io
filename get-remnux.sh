@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-113"
+__ScriptVersion="REMnux-v6-114"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -189,8 +189,8 @@ enable_additional_repositories() {
 
   if [ "x$(grep -R draios /etc/apt/sources.list /etc/apt/sources.list.d/ | grep -v '#')" = "x" ]; then
     echoinfo "Enabling Draios repository for Sysdig"
-    curl -s https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | apt-key add -   >> $LOGFILE 2>&1
-	curl -s -o /etc/apt/sources.list.d/draios.list http://download.draios.com/stable/deb/draios.list  >> $LOGFILE 2>&1
+    wget -q -O - https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | apt-key add -   >> $LOGFILE 2>&1
+    wget -q --output-document /etc/apt/sources.list.d/draios.list http://download.draios.com/stable/deb/draios.list  >> $LOGFILE 2>&1
   fi
   
   # These repositories are needed for REMnux, but are disabled on some Ubuntu 14.04 base builds, so enable them.
