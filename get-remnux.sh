@@ -423,7 +423,8 @@ install_ubuntu_14.04_packages() {
     remnux-flare
     remnux-oletools
     remnux-captipper
-    remnux-cfr"
+    remnux-cfr
+    remnux-pycdc"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
