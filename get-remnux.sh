@@ -424,7 +424,8 @@ install_ubuntu_14.04_packages() {
     remnux-oletools
     remnux-captipper
     remnux-cfr
-    remnux-pycdc"
+    remnux-pycdc
+    remnux-virustotalapi"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
