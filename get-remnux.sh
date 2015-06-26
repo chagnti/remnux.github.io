@@ -426,7 +426,8 @@ install_ubuntu_14.04_packages() {
     remnux-cfr
     remnux-pycdc
     remnux-virustotalapi
-    remnux-dc3-mwcp"
+    remnux-dc3-mwcp
+    libemail-outlook-message-perl"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
