@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-114"
+__ScriptVersion="REMnux-v6-115"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -427,7 +427,8 @@ install_ubuntu_14.04_packages() {
     remnux-pycdc
     remnux-virustotalapi
     remnux-dc3-mwcp
-    libemail-outlook-message-perl"
+    libemail-outlook-message-perl
+    python-dnspython"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
@@ -506,7 +507,6 @@ install_ubuntu_14.04_pip_packages() {
   pylzma
   pyelftools
   bitstring
-  dnspython
   requesocks
   rarfile
   fuzzywuzzy"
