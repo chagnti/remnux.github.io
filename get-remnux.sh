@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-115"
+__ScriptVersion="REMnux-v6-116"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -428,7 +428,8 @@ install_ubuntu_14.04_packages() {
     remnux-virustotalapi
     remnux-dc3-mwcp
     libemail-outlook-message-perl
-    python-dnspython"
+    python-dnspython
+    remnux-ioc-parser"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
