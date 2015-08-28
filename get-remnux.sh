@@ -213,6 +213,17 @@ enable_additional_repositories() {
   return 0
 }
 
+# Some files and directories need to be removed before reinstalling the corresponding tool
+remove_before_install() {
+  locations="/usr/local/lib/python2.7/dist-packages/rekall
+  /usr/local/lib/python2.7/dist-packages/rekall-1.3.2-py2.7.egg-info"
+  
+  for LOCATION in $locations; do
+    echoinfo "Removing location before installing: $LOCATION"
+    rm -rf $LOCATION >> $LOGFILE 2>&1
+  done
+}
+
 install_ubuntu_14.04_deps() {
 
   echoinfo "Updating the base APT repository package list... "
@@ -471,7 +482,6 @@ install_ubuntu_14.04_packages() {
 }
 
 remove_ubuntu_packages() {
-
   packages="xterm
   netcat-traditional
   cups-client"
@@ -490,7 +500,6 @@ remove_ubuntu_packages() {
   apt-get autoremove -y >> $LOGFILE 2>&1
 
   return 0
-
 }
 
 install_ubuntu_14.04_pip_packages() {
@@ -647,7 +656,7 @@ configure_ubuntu() {
   echoinfo "Creating mount points and other directories"
   for dir in cdrom
   do
-	  mkdir -p /mnt/$dir >> $LOGFILE 2>&1
+    mkdir -p /mnt/$dir >> $LOGFILE 2>&1
   done
   mkdir -p /opt >> $LOGFILE 2>&1
   mkdir -p /var/log/thug >> $LOGFILE 2>&1
@@ -1101,6 +1110,7 @@ if [ "$UPGRADE_ONLY" -eq 1 ]; then
   echoinfo "Upgrading REMnux. Details logged to $LOGFILE."
   echoinfo "All other options will be ignored."
   export DEBIAN_FRONTEND=noninteractive
+  remove_before_install
   install_ubuntu_${VER}_deps $ITYPE || echoerror "Updating Depedencies Failed"
   install_ubuntu_${VER}_packages $ITYPE || echoerror "Updating Packages Failed"
   install_ubuntu_${VER}_pip_packages $ITYPE || echoerror "Updating Python Packages Failed"
@@ -1128,6 +1138,7 @@ echoinfo "Installing REMnux. Details logged to $LOGFILE."
 
 if [ "$INSTALL" -eq 1 ] && [ "$CONFIGURE_ONLY" -eq 0 ]; then
     export DEBIAN_FRONTEND=noninteractive
+    remove_before_install
     install_ubuntu_${VER}_deps $ITYPE
     install_ubuntu_${VER}_packages $ITYPE
     remove_ubuntu_packages $ITYPE
