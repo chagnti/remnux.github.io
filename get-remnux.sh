@@ -215,11 +215,8 @@ enable_additional_repositories() {
 
 # Some files and directories need to be removed before reinstalling the corresponding tool
 remove_before_install() {
-  locations="/usr/local/lib/python2.7/dist-packages/rekall*
-  $LOGFILE"
-  
+  locations="/usr/local/lib/python2.7/dist-packages/rekall*"
   for LOCATION in $locations; do
-    echoinfo "Removing location before installing: $LOCATION"
     rm -rf $LOCATION >> $LOGFILE 2>&1
   done
 }
