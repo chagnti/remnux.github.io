@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-116"
+__ScriptVersion="REMnux-v6-117"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -215,7 +215,8 @@ enable_additional_repositories() {
 
 # Some files and directories need to be removed before reinstalling the corresponding tool
 remove_before_install() {
-  locations="/usr/local/lib/python2.7/dist-packages/rekall*"
+  locations="/usr/local/lib/python2.7/dist-packages/rekall*
+  $LOGFILE"
   
   for LOCATION in $locations; do
     echoinfo "Removing location before installing: $LOCATION"
