@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-117"
+__ScriptVersion="REMnux-v6-118"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
