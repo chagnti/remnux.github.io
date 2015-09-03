@@ -369,6 +369,9 @@ install_ubuntu_14.04_packages() {
     libjavassist-java
     tcpflow
     geany
+    unicode 
+    qpdf
+    pdfresurrect
     sysdig
     yara
     libyara3
