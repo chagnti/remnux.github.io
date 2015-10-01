@@ -440,7 +440,8 @@ install_ubuntu_14.04_packages() {
     remnux-dc3-mwcp
     libemail-outlook-message-perl
     python-dnspython
-    remnux-ioc-parser"
+    remnux-ioc-parser
+    elfparser"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
