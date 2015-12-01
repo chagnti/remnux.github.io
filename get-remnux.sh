@@ -430,7 +430,6 @@ install_ubuntu_14.04_packages() {
     remnux-burpsuite-free
     scite
     remnux-js-didier
-    remnux-python-pdns
     remnux-flare
     remnux-oletools
     remnux-captipper
@@ -485,7 +484,8 @@ install_ubuntu_14.04_packages() {
 remove_ubuntu_packages() {
   packages="xterm
   netcat-traditional
-  cups-client"
+  cups-client
+  remnux-python-pdns"
 
   if [ "$@" = "dev" ]; then
     packages="$packages"
@@ -520,7 +520,10 @@ install_ubuntu_14.04_pip_packages() {
   bitstring
   requesocks
   rarfile
-  fuzzywuzzy"
+  fuzzywuzzy
+  r2pipe
+  pypdns
+  pypssl"
   pip_pre_packages=""
 
   if [ "$@" = "dev" ]; then
@@ -1114,6 +1117,7 @@ if [ "$UPGRADE_ONLY" -eq 1 ]; then
   remove_before_install
   install_ubuntu_${VER}_deps $ITYPE || echoerror "Updating Depedencies Failed"
   install_ubuntu_${VER}_packages $ITYPE || echoerror "Updating Packages Failed"
+  remove_ubuntu_packages $ITYPE
   install_ubuntu_${VER}_pip_packages $ITYPE || echoerror "Updating Python Packages Failed"
   install_ruby_gems $ITYPE || echoerror "Updating Ruby Gems Failed"
   install_firefox_extensions || echoerror "Installing Firefox Extensions Failed"
