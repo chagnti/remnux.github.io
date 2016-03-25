@@ -10,7 +10,7 @@ timezone: null
 lsi: false
 markdown: kramdown
 highlighter: rouge
-permalink: 
+permalink: /:month-:day-:year/:title.html
 
 
 ### content configuration ###
