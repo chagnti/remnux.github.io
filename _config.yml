@@ -10,7 +10,7 @@ timezone: null
 lsi: false
 markdown: kramdown
 highlighter: rouge
-permalink:/
+permalink: /:
 
 
 ### content configuration ###
