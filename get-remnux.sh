@@ -75,70 +75,6 @@ __check_unparsed_options() {
     fi
 }
 
-# Determines ID of the specified extension file, using code
-# from http://kb.mozillazine.org/Determine_extension_ID
-__get_extension_id() {
-  unzip -qc $1 install.rdf | xmlstarlet sel \
-    -N rdf=http://www.w3.org/1999/02/22-rdf-syntax-ns# \
-    -N em=http://www.mozilla.org/2004/em-rdf# \
-    -t -v \
-    "//rdf:Description[@about='urn:mozilla:install-manifest']/em:id"
-}
-
-__install_firefox_extension() {
-
-  URL=$@
-  FILE=/tmp/install_extension.$$
-
-  # Download the extension file from the specified URL
-  rm -f $FILE
-  if [ -e $FILE ]; then
-    echo "Could not remove $FILE"
-    return 1
-  fi
-  wget -q $URL --output-document $FILE
-  if [ ! -s $FILE ]; then
-    echo "Could not download $URL."
-    rm -f $FILE
-    return 2
-  fi
-  if [ ! "x$(file $FILE | grep Zip)" != "x" ]; then
-    echo "The downloaded file is not an archive"
-    rm -f $FILE
-   return 3
-  fi
-  
-  # Determine the ID of the downloaded extension
-  ID="$(__get_extension_id $FILE)"
-  if [ "$ID" = "" ]; then
-    echo "Could not determine the extension ID of $URL"
-    return 4
-  fi
-  
-  # Create the directory where the extension will reside
-  DIR="/usr/lib/firefox/browser/extensions/$ID"
-  if [ -d $DIR ]; then
-    rmdir --ignore-fail-on-non-empty $DIR
-  fi
-  if [ -d $DIR ]; then
-    rm $FILE
-    return 0
-  fi
-  mkdir $DIR
-  if [ ! -d $DIR ]; then
-    echo "Could not create $DIR"
-    rm $FILE
-    return 5
-  fi
-
-  # Extract the extension
-  cd $DIR && unzip -q $FILE
-  rm $FILE
-
-  return 0
-  
-}
-
 configure_cpan() {
     (echo y;echo o conf prerequisites_policy follow;echo o conf commit)|cpan > /dev/null
 }
@@ -152,6 +88,11 @@ cleanup() {
   echoinfo "Cleaning Up"
   apt-get autoremove -qq -y >> $LOGFILE 2>&1
   rm -rf /var/cache/apt/archives/* > /dev/null
+  
+  # Remove Firefox extensions that used to be centrally added by the prior version of this script
+  rm -rf /usr/lib/firefox/browser/extensions/firebug@software.joehewitt.com > /dev/null
+  rm -rf /usr/lib/firefox/browser/extensions/\{E6C1199F-E687-42da-8C24-E7770CC3AE66\} > /dev/null
+  
   if [ ! -d /usr/share/remnux ]; then
     echoerror "Some REMnux packages didn't install."
     echoerror "Rebooting and running this command again sometimes addresses the issue."
@@ -440,7 +381,8 @@ install_ubuntu_14.04_packages() {
     libemail-outlook-message-perl
     python-dnspython
     remnux-ioc-parser
-    elfparser"
+    elfparser
+    remnux-just-metadata"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
@@ -523,7 +465,9 @@ install_ubuntu_14.04_pip_packages() {
   fuzzywuzzy
   r2pipe
   pypdns
-  pypssl"
+  pypssl
+  ipwhois
+  shodan"
   pip_pre_packages=""
 
   if [ "$@" = "dev" ]; then
@@ -602,28 +546,6 @@ install_ruby_gems() {
   touch $HOME/.passivedns-client
 
   return 0
-}
-
-install_firefox_extensions() {
-
-  echoinfo "Installing Firefox extensions"
-  
-  firefox_extensions="https://addons.mozilla.org/firefox/downloads/latest/1237/addon-1237-latest.xpi
-  https://addons.mozilla.org/firefox/downloads/latest/1843/addon-1843-latest.xpi"
-
-  ERROR=0
-  for EXTENSION in $firefox_extensions; do
-    CURRENT_ERROR=0
-    __install_firefox_extension $EXTENSION >> $LOGFILE 2>&1 || (let ERROR=ERROR+1 && let CURRENT_ERROR=1)
-    if [ $CURRENT_ERROR -eq 1 ]; then
-      echoerror "Firefox Extension Install Failure: $EXTENSION"
-    fi
-  done
-
-  if [ $ERROR -ne 0 ]; then
-    return 1
-  fi
-  
 }
 
 update_remnux_documentation() {
@@ -1120,7 +1042,6 @@ if [ "$UPGRADE_ONLY" -eq 1 ]; then
   remove_ubuntu_packages $ITYPE
   install_ubuntu_${VER}_pip_packages $ITYPE || echoerror "Updating Python Packages Failed"
   install_ruby_gems $ITYPE || echoerror "Updating Ruby Gems Failed"
-  install_firefox_extensions || echoerror "Installing Firefox Extensions Failed"
   update_remnux_documentation
   
   if [ "$(dpkg -l | egrep 'ii\s+open-vm-tools-desktop\s')x" != "x" ]; then
@@ -1149,7 +1070,6 @@ if [ "$INSTALL" -eq 1 ] && [ "$CONFIGURE_ONLY" -eq 0 ]; then
     remove_ubuntu_packages $ITYPE
     install_ubuntu_${VER}_pip_packages $ITYPE
     install_ruby_gems $ITYPE
-    install_firefox_extensions
 fi
 
 configure_ubuntu
