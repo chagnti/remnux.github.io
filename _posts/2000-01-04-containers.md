@@ -6,7 +6,8 @@ fa-icon: cube
 ---
 
 
-##Docker Images for Malware Analysis Tools
+Docker Images for Malware Analysis Tools
+----------------------------------------
 
 One aspect of the REMnux project involves providing [Docker](https://www.docker.com/) images of popular malware analysis tools, with the goal of allowing investigators to conveniently utilize difficult-to-install applications without having to install the REMnux distro. Such images could be compared to lightweight virtual machines; though they don’t offer the same level of isolation as real VMs, they provide a container within which the application can be encapsulated along with its dependencies.
 
