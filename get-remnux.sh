@@ -185,7 +185,8 @@ install_ubuntu_14.04_deps() {
 }
 
 install_ubuntu_14.04_packages() {
-    packages="vbindiff
+    packages="xterm
+    vbindiff
     wxhexeditor
     feh
     libffi-dev
@@ -445,8 +446,7 @@ remove_ubuntu_packages() {
 }
 
 install_ubuntu_14.04_pip_packages() {
-  pip_packages="xterm
-  distorm3
+  pip_packages="distorm3
   cryptography
   pyelftools
   rekall
