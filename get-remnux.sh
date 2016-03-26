@@ -424,8 +424,7 @@ install_ubuntu_14.04_packages() {
 }
 
 remove_ubuntu_packages() {
-  packages="xterm
-  netcat-traditional
+  packages="netcat-traditional
   cups-client
   remnux-python-pdns"
 
@@ -446,7 +445,8 @@ remove_ubuntu_packages() {
 }
 
 install_ubuntu_14.04_pip_packages() {
-  pip_packages="distorm3
+  pip_packages="xterm
+  distorm3
   cryptography
   pyelftools
   rekall
@@ -833,7 +833,7 @@ configure_ubuntu_remnux_system() {
   if [ -f $EDB_CONFIG ]; then
     sudo -u $SUDO_USER mkdir -p $HOME/.config/codef00.com/edb-symbols 2>/dev/null
     sudo -u $SUDO_USER mkdir -p $HOME/.config/codef00.com/edb-session 2>/dev/null
-    sed -i "s,/usr/bin/xterm,/usr/bin/lxterminal,g" $EDB_CONFIG >> $LOGFILE 2>&1
+    sed -i "s,/usr/bin/lxterminal,/usr/bin/xterm,g" $EDB_CONFIG >> $LOGFILE 2>&1
     sed -i "s,^directory.symbol.path=$,directory.symbol.path=$HOME/.config/codef00.com/edb-symbols,g" $EDB_CONFIG >> $LOGFILE 2>&1
     sed -i "s,^directory.session.path=$,directory.session.path=$HOME/.config/codef00.com/edb-session,g" $EDB_CONFIG >> $LOGFILE 2>&1
     sed -i "s,^directory.plugin.path=$,directory.plugin.path=/lib64/edb,g" $EDB_CONFIG >> $LOGFILE 2>&1
