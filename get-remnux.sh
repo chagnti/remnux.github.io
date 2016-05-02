@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-118"
+__ScriptVersion="REMnux-v6-119"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -109,6 +109,16 @@ enable_additional_repositories() {
       if [ $ERROR -ne 0 ]; then
         echoerror "Could not enable the REMnux repository (Error Code: $ERROR)."
         echoerror "REMnux-specific packages won't install from this repository."
+      fi
+  fi
+  
+  if [ "x$(grep -R apt.dockerproject.org /etc/apt/sources.list /etc/apt/sources.list.d/ | grep -v '#')" = "x" ]; then
+    echoerror "Enabling the Docker repository"
+    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D 
+    add-apt-repository -y "deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -sc) main"
+    ERROR=$?
+      if [ $ERROR -ne 0 ]; then
+        echoerror "Could not enable the Docker repository (Error Code: $ERROR)."
       fi
   fi
 
@@ -235,7 +245,7 @@ install_ubuntu_14.04_packages() {
     python-crypto
     python-volatility
     ssdeep
-    docker.io
+    docker-engine
     libimage-exiftool-perl
     scalpel
     liblzma-dev
@@ -608,8 +618,8 @@ configure_ubuntu() {
   update-rc.d clamav-freshclam disable >> $LOGFILE 2>&1
 
   echoinfo "Stopping Docker daemon"
-  service docker.io stop >> $LOGFILE 2>&1
-  echo manual | tee -a /etc/init/docker.io.override  >> $LOGFILE 2>&1
+  service docker stop >> $LOGFILE 2>&1
+  echo manual | tee -a /etc/init/docker.override  >> $LOGFILE 2>&1
 
   echoinfo "Stopping Nginx daemon"
   service nginx stop >> $LOGFILE 2>&1
