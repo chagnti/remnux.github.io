@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-119"
+__ScriptVersion="REMnux-v6-120"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -352,7 +352,6 @@ install_ubuntu_14.04_packages() {
     remnux-bokken
     remnux-viper
     remnux-pdfxray-lite
-    remnux-thug
     remnux-trid
     remnux-rule-editor
     remnux-peepdf
@@ -437,7 +436,8 @@ install_ubuntu_14.04_packages() {
 remove_ubuntu_packages() {
   packages="netcat-traditional
   cups-client
-  remnux-python-pdns"
+  remnux-python-pdns
+  remnux-thug"
 
   if [ "$@" = "dev" ]; then
     packages="$packages"
