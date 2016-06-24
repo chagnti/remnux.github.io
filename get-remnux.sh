@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-121"
+__ScriptVersion="REMnux-v6-122"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -393,7 +393,8 @@ install_ubuntu_14.04_packages() {
     remnux-ioc-parser
     elfparser
     remnux-just-metadata
-    remnux-thug"
+    remnux-thug
+    flare-floss"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
