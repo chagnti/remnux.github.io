@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-122"
+__ScriptVersion="REMnux-v6-123"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -394,7 +394,8 @@ install_ubuntu_14.04_packages() {
     elfparser
     remnux-just-metadata
     remnux-thug
-    flare-floss"
+    flare-floss
+    remnux-dshell"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
@@ -478,7 +479,8 @@ install_ubuntu_14.04_pip_packages() {
   pypdns
   pypssl
   ipwhois
-  shodan"
+  shodan
+  pygeoip"
   pip_pre_packages=""
 
   if [ "$@" = "dev" ]; then
@@ -778,7 +780,8 @@ configure_ubuntu_remnux_system() {
   /opt/remnux-vivisect
   /opt/remnux-rabcdasm
   /opt/remnux-ratdecoders
-  /opt/remnux-procdot"
+  /opt/remnux-procdot
+  /opt/remnux-dshell"
   for EXTRAPATH in $extrapaths; do
     if [ "x$(grep '$EXTRAPATH' /etc/environment)" = "x" ]; then
         sed -i "s,^PATH=\",PATH=\"$EXTRAPATH:,g" /etc/environment >> $LOGFILE 2>&1
