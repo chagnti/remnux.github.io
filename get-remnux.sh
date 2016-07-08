@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-123"
+__ScriptVersion="REMnux-v6-124"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -480,7 +480,8 @@ install_ubuntu_14.04_pip_packages() {
   pypssl
   ipwhois
   shodan
-  pygeoip"
+  pygeoip
+  ndg-httpsclient"
   pip_pre_packages=""
 
   if [ "$@" = "dev" ]; then
