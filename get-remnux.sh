@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-126"
+__ScriptVersion="REMnux-v6-127"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -122,10 +122,10 @@ enable_additional_repositories() {
       fi
   fi
 
+  wget -O - http://www.inetsim.org/inetsim-archive-signing-key.asc | apt-key add - >> $LOGFILE 2>&1
   if [ "x$(grep -R inetsim /etc/apt/sources.list /etc/apt/sources.list.d/ | grep -v '#')" = "x" ]; then
     echoinfo "Enabling InetSim repository"
     echo "deb http://www.inetsim.org/debian/ binary/" | tee -a /etc/apt/sources.list.d/inetsim.list  >> $LOGFILE 2>&1
-    wget -q -O - http://www.inetsim.org/inetsim.org-archive-signing-key.asc | apt-key add -  >> $LOGFILE 2>&1
   fi
 
   if [ "x$(grep -R sift /etc/apt/sources.list /etc/apt/sources.list.d/ | grep -v '#')" = "x" ]; then
