@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-127"
+__ScriptVersion="REMnux-v6-128"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -397,7 +397,8 @@ install_ubuntu_14.04_packages() {
     flare-floss
     remnux-dshell
     remnux-detect-it-easy
-    python-passivetotal"
+    python-passivetotal
+    remnux-portex"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
