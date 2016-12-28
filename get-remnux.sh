@@ -484,6 +484,7 @@ install_ubuntu_14.04_pip_packages() {
   ipwhois
   shodan
   pygeoip
+  docker-compose
   ndg-httpsclient"
   pip_pre_packages=""
 
