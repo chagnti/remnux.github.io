@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-128"
+__ScriptVersion="REMnux-v6-129"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -398,7 +398,8 @@ install_ubuntu_14.04_packages() {
     remnux-dshell
     remnux-detect-it-easy
     python-passivetotal
-    remnux-portex"
+    remnux-portex
+    flare-fakenet-ng"
 
     if [ "$@" = "dev" ]; then
         packages="$packages"
@@ -485,7 +486,10 @@ install_ubuntu_14.04_pip_packages() {
   shodan
   pygeoip
   docker-compose
-  ndg-httpsclient"
+  ndg-httpsclient
+  dnslib
+  netfilterqueue
+  pydivert"
   pip_pre_packages=""
 
   if [ "$@" = "dev" ]; then
