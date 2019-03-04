@@ -16,7 +16,7 @@
 # https://github.com/sans-dfir/sift-bootstrap
 #------------------------------------------------------------------------------
 
-__ScriptVersion="REMnux-v6-130"
+__ScriptVersion="REMnux-v6-131"
 LOGFILE="/var/log/remnux-install.log"
 
 echoerror() {
@@ -47,6 +47,10 @@ __apt_get_remove_noinput() {
 
 __pip_install_noinput() {
     pip install --upgrade $@; return $?
+}
+
+__pip3_install_noinput() {
+    pip3 install --upgrade $@; return $?
 }
 
 __pip_pre_install_noinput() {
@@ -274,6 +278,7 @@ install_ubuntu_14.04_packages() {
     python-dev
     automake
     python-pip
+    python3-pip
     ruby
     ruby-dev
     git
@@ -515,6 +520,39 @@ install_ubuntu_14.04_pip_packages() {
     __pip_install_noinput $PACKAGE >> $LOGFILE 2>&1 || (let ERROR=ERROR+1 && let CURRENT_ERROR=1)
     if [ $CURRENT_ERROR -eq 1 ]; then
       echoerror "Python Package Install Failure: $PACKAGE"
+    fi
+  done
+
+  if [ $ERROR -ne 0 ]; then
+    return 1
+  fi
+
+  return 0
+}
+
+install_ubuntu_14.04_pip3_packages() {
+  pip3_packages="pefile
+  python-magic
+  yara-python
+  virustotal-api
+  oletools
+  M2Crypto"
+  pip_pre_packages=""
+
+  if [ "$@" = "dev" ]; then
+    pip_packages="$pip_packages"
+  elif [ "$@" = "stable" ]; then
+    pip_packages="$pip_packages"
+  fi
+
+  ERROR=0
+
+  for PACKAGE in $pip3_packages; do
+    CURRENT_ERROR=0
+    echoinfo "Installing Python3 Package: $PACKAGE"
+    __pip3_install_noinput $PACKAGE >> $LOGFILE 2>&1 || (let ERROR=ERROR+1 && let CURRENT_ERROR=1)
+    if [ $CURRENT_ERROR -eq 1 ]; then
+      echoerror "Python3 Package Install Failure: $PACKAGE"
     fi
   done
 
@@ -1065,6 +1103,7 @@ if [ "$UPGRADE_ONLY" -eq 1 ]; then
   install_ubuntu_${VER}_packages $ITYPE || echoerror "Updating Packages Failed"
   remove_ubuntu_packages $ITYPE
   install_ubuntu_${VER}_pip_packages $ITYPE || echoerror "Updating Python Packages Failed"
+  install_ubuntu_${VER}_pip3_packages $ITYPE || echoerror "Updating Python Packages Failed"
   install_ruby_gems $ITYPE || echoerror "Updating Ruby Gems Failed"
   update_remnux_documentation
   
